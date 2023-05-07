@@ -4,28 +4,26 @@
  */
 package dao;
 
-
 import java.awt.HeadlessException;
 import java.sql.*;
 import javax.swing.JOptionPane;
+
 /**
  *
  * @author Dungpc
  */
 public class DbOperations {
-    public static void setDataorDelete(String querry,String message){
-        try {
-            Connection con =   ConnectionProvider.getCon();
-            Statement st = con.createStatement();
-            st.executeUpdate(querry);
-            if(!message.equals(" ")){
-                JOptionPane.showMessageDialog(null, message);
-            }
-        } catch (HeadlessException | SQLException e) {
-            JOptionPane.showMessageDialog(null,e,"Message",JOptionPane.ERROR_MESSAGE);
-        }
-        
-        
-        
-    }
+	public static void setDataOrDelete(String querry, String message) {
+		try {
+			Connection con = ConnectionProvider.getCon();
+			Statement st = con.createStatement();
+			st.executeUpdate(querry);
+			if (!message.equals(" ")) {
+				JOptionPane.showMessageDialog(null, message);
+			}
+		} catch (HeadlessException | SQLException e) {
+			JOptionPane.showMessageDialog(null, e, "Message", JOptionPane.ERROR_MESSAGE);
+		}
+
+	}
 }
