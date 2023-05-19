@@ -13,7 +13,11 @@ public class tables {
 
                         String adminDetails = "INSERT INTO myTable(name,email,mobilenumber,address,password,securityQuestion,answer,status) "
                                 + " VALUES('dung','ledung200803@gmail.com','0335620803','Hanoi','12345678','What is your girlfriend name?','Phuong','true')";
+                        String productTable = "create table product(id int AUTO_INCREMENT primary key,name varchar(200),category varchar(200),pricr varchar(200))";
+                        String categoryTable = "create table category (id int AUTO_INCREMENT primary key,name varchar(200)";
                         DbOperations.setDataOrDelete(adminDetails, " Add admin details successfully");
+                        DbOperations.setDataOrDelete(categoryTable, " Category Table Created successfully");
+                        DbOperations.setDataOrDelete(productTable, " Product Table Created successfully");
                         
                         
                         
