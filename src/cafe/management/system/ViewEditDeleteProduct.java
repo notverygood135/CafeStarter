@@ -206,7 +206,6 @@ public class ViewEditDeleteProduct extends javax.swing.JFrame {
 		DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
 		List<Product> products = ProductDao.getAll();
 		products.stream().forEach(p -> {
-			System.out.println(p.getName());
 			model.addRow(new Object[] { p.getId(), p.getName(), p.getCategory(), p.getPrice() });
 		});
 	}// GEN-LAST:event_formComponentShown
