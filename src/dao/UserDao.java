@@ -3,11 +3,13 @@ package dao;
 import javax.swing.JOptionPane;
 import model.User;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserDao {
 
     public void save(User user) {
-        String query = "INSERT INTO user(name, email, mobilenumber, address, password, securityQuestion, answer, status) VALUES ('"
+        String query = "INSERT INTO [user] (name, email, mobileNumber, address, password, securityQuestion, answer, status) VALUES ('"
                 + user.getName() + "', '"
                 + user.getEmail() + "', '"
                 + user.getMobileNumber() + "', '"
@@ -22,7 +24,7 @@ public class UserDao {
     public User login(String email, String Password) {
         User user = null;
         try {
-            ResultSet rs = DbOperations.getData("SELECT * FROM user WHERE  email = '" + email + "' AND password = '" + Password + "'");
+            ResultSet rs = DbOperations.getData("SELECT * FROM [user] WHERE  email = '" + email + "' AND password = '" + Password + "'");
             while (rs.next()) {
                 user = new User();
                 user.setStatus(rs.getString("Status"));
@@ -36,7 +38,7 @@ public class UserDao {
     public User getSecurityQuestion(String email) {
         User user = null;
         try {
-            ResultSet rs = DbOperations.getData("SELECT * FROM user WHERE  email = '" + email + "'");
+            ResultSet rs = DbOperations.getData("SELECT * FROM [user] WHERE  email = '" + email + "'");
             while (rs.next()) {
                 user = new User();
                 user.setSecurityQuestion(rs.getString("securityQuestion"));
@@ -50,8 +52,38 @@ public class UserDao {
     }
 
     public static void updatePassWord(String Email, String newPass) {
-        String query = "UPDATE user SET password = '" + newPass + "' WHERE email = '" + Email + "'";
+        String query = "UPDATE [user] SET password = '" + newPass + "' WHERE email = '" + Email + "'";
         DbOperations.setDataOrDelete(query, "Changed Password Succcessfully");
 
+    }
+
+    public static List<User> getAll(String email) {
+        List<User> users = new ArrayList<>();
+
+        String query = "SELECT * FROM [user] WHERE email LIKE '%" + email + "%'";
+
+        try {
+            ResultSet rs = DbOperations.getData(query);
+            while (rs.next()) {
+                User user = new User();
+                user.setId(rs.getInt("id"));
+                user.setName(rs.getString("name"));
+                user.setEmail(rs.getString("email"));
+                user.setMobileNumber(rs.getString("mobileNumber"));
+                user.setAddress(rs.getString("address"));
+                user.setSecurityQuestion(rs.getString("securityQuestion"));
+                user.setStatus(rs.getString("status"));
+                users.add(user);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+        return users;
+    }
+
+    public static void changeStatus(String email, String status) {
+        String query = String.format("UPDATE [user] SET status = '%s' WHERE email = '%s'", status, email);
+
+        DbOperations.setDataOrDelete(query, "Status changed successfully");
     }
 }

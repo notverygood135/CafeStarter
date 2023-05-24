@@ -22,8 +22,8 @@ public class DbOperations {
 				JOptionPane.showMessageDialog(null, message);
 			}
 		} catch (HeadlessException | SQLException e) {
-                  
-			JOptionPane.showMessageDialog(null, e, "Message", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, e, "Message", JOptionPane.ERROR_MESSAGE);
+			e.printStackTrace();
 		}
 
 	}
@@ -36,6 +36,7 @@ public class DbOperations {
                 return rs;
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, e, "Message", JOptionPane.ERROR_MESSAGE);
+                e.printStackTrace();
                 return null;
             }
         
