@@ -7,7 +7,7 @@ import java.sql.*;
 public class UserDao {
 
     public void save(User user) {
-        String query = "INSERT INTO mytable(name, email, mobilenumber, address, password, securityQuestion, answer, status) VALUES ('"
+        String query = "INSERT INTO user(name, email, mobilenumber, address, password, securityQuestion, answer, status) VALUES ('"
                 + user.getName() + "', '"
                 + user.getEmail() + "', '"
                 + user.getMobileNumber() + "', '"
@@ -22,7 +22,7 @@ public class UserDao {
     public User login(String email, String Password) {
         User user = null;
         try {
-            ResultSet rs = DbOperations.getData("SELECT * FROM myTable WHERE  email = '" + email + "' AND password = '" + Password + "'");
+            ResultSet rs = DbOperations.getData("SELECT * FROM user WHERE  email = '" + email + "' AND password = '" + Password + "'");
             while (rs.next()) {
                 user = new User();
                 user.setStatus(rs.getString("Status"));
@@ -36,7 +36,7 @@ public class UserDao {
     public User getSecurityQuestion(String email) {
         User user = null;
         try {
-            ResultSet rs = DbOperations.getData("SELECT * FROM myTable WHERE  email = '" + email + "'");
+            ResultSet rs = DbOperations.getData("SELECT * FROM user WHERE  email = '" + email + "'");
             while (rs.next()) {
                 user = new User();
                 user.setSecurityQuestion(rs.getString("securityQuestion"));
@@ -50,7 +50,7 @@ public class UserDao {
     }
 
     public static void updatePassWord(String Email, String newPass) {
-        String query = "UPDATE myTable SET password = '" + newPass + "' WHERE email = '" + Email + "'";
+        String query = "UPDATE user SET password = '" + newPass + "' WHERE email = '" + Email + "'";
         DbOperations.setDataOrDelete(query, "Changed Password Succcessfully");
 
     }
